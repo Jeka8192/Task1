@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Макеты моего профиля</string>
+    <string name="settings">Настройки</string>
+    <string name="address">5295 Gaylord Walks Apk. 110</string>
+    <string name="name">Lucile Alvarado</string>
+    <string name="profession">Графический дизайнер</string>
+    <string name="view_my_contacts">ПРОСМОТРЕТЬ МОИ КОНТАКТЫ</string>
+    <string name="edit_profile">Изменить профиль</string>
+    <string name="account">У вас уже есть учетная запись?   Войти</string>
+    <string name="conditions">Нажимая "Зарегистрироваться", вы соглашаетесь с нашими Условиями\nи Условиями</string>
+    <string name="register">РЕГИСТРАЦИЯ</string>
+    <string name="or">или</string>
+    <string name="google">GOOGLE</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="password">Пароль</string>
+    <string name="email">E-mail</string>
+    <string name="profile">Заполните профиль и перейдите в приложение!</string>
+    <string name="acquainted">Давайте знакомиться</string>
+</resources>
