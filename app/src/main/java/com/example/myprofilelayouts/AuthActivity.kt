@@ -1,89 +1,51 @@
 package com.example.myprofilelayouts
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.DataStore
-import androidx.datastore.preferences.Preferences
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
-import androidx.datastore.preferences.preferencesKey
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-
+import com.example.myprofilelayouts.databinding.ActivityAuthBinding
 
 class AuthActivity : AppCompatActivity() {
     private val incorrectEntry: String = "Incorrect entry"
-    private lateinit var fieldMail: TextInputLayout
-    private lateinit var textMail: TextInputEditText
-    private lateinit var fieldPassword: TextInputLayout
-    private lateinit var textPassword: TextInputEditText
-    private val TAG = "AuthActivity"
-    private var rememberMe = false
-    private lateinit var userPreferences: UserPreferences
+    private lateinit var binding: ActivityAuthBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
-        textMail = findViewById<View>(R.id.email_text) as TextInputEditText
-        fieldMail = findViewById<View>(R.id.email) as TextInputLayout
-        textPassword = findViewById<View>(R.id.password_text) as TextInputEditText
-        fieldPassword = findViewById<View>(R.id.password) as TextInputLayout
-
-        userPreferences = UserPreferences(this)
-
-        userPreferences.mail.asLiveData().observe(this, Observer {
-            fieldMail.helperText = it
-        })
+        binding = ActivityAuthBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
-    fun onCheckboxClicked(view: View) {
-        rememberMe = !rememberMe
+    fun onCheckboxClicked() {
     }
 
-    fun register(view: View) {
-        var mail: String = mailExtraction()
-        var password: String = passwordExtraction()
-        if (mail == incorrectEntry) fieldMail.error = incorrectEntry
-        else fieldMail.error = null
-        if (password == incorrectEntry) fieldPassword.error = incorrectEntry
-        else fieldPassword.error = null
-        if (rememberMe) {
-            val mail = textMail.text.toString().trim()
-            lifecycleScope.launch {
-                userPreferences.saveBookmark(mail)
-            }
-        }
+    fun register() {
+        val mail: String = mailExtraction()
+        val password: String = passwordExtraction()
+        if (mail == incorrectEntry) binding.email.error = incorrectEntry
+        else binding.email.error = null
+        if (password == incorrectEntry) binding.password.error = incorrectEntry
+        else binding.password.error = null
         if (mail != incorrectEntry && password != incorrectEntry) {
-            createIntentMainActivity(mail, password)
+            createIntentMainActivity(mail)
         }
     }
 
-    private fun createIntentMainActivity(mail: String, password: String) {
+    private fun createIntentMainActivity(mail: String) {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("mail", mail)
-        //intent.putExtra("password", password)
         startActivity(intent)
-        overridePendingTransition(R.anim.right, R.anim.left);
+        overridePendingTransition(R.anim.right, R.anim.left)
     }
 
 
     private fun passwordExtraction(): String {
-        var password: String = textPassword.text.toString()
+        val password: String = binding.passwordText.text.toString()
         return if (isPasswordValid(password)) password
         else incorrectEntry
     }
 
     private fun mailExtraction(): String {
-        var mail: String = textMail.text.toString()
+        val mail: String = binding.emailText.text.toString()
         return if (isEmailValid(mail)) mail
         else incorrectEntry
     }
@@ -96,31 +58,5 @@ class AuthActivity : AppCompatActivity() {
         val reg: Regex = "[\ba-zA-Z]+".toRegex()
         return if (password.length < 8 || password.length > 48) false
         else password.matches(reg)
-    }
-}
-
-
-class UserPreferences(
-    context: Context
-) {
-    private val applicationContext = context.applicationContext
-    private val dataStore: DataStore<Preferences> = applicationContext.createDataStore(
-        name = "app_preferences"
-    )
-
-    val mail: Flow<String?>
-        get() = dataStore.data.map { preferences ->
-            preferences[KEY_MAIL]
-        }
-
-    suspend fun saveBookmark(mail: String) {
-        dataStore.edit { preferences ->
-            preferences[KEY_MAIL] = mail
-        }
-    }
-
-
-    companion object {
-        val KEY_MAIL = preferencesKey<String>("key_mail")
     }
 }

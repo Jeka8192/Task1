@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var name = findViewById<TextView>(R.id.name)
+        val name = findViewById<TextView>(R.id.name)
         val arguments: Bundle? = intent.extras
         name.text = extractName(arguments)
     }
