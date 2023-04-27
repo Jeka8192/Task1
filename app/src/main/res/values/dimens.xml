@@ -1,0 +1,17 @@
+<resources>
+    <dimen name="margin_on_the_edges">15dp</dimen>
+    <dimen name="padding_between_elements">10dp</dimen>
+    <dimen name="profession">18sp</dimen>
+    <dimen name="address">18sp</dimen>
+    <dimen name="name">22sp</dimen>
+    <dimen name="settings">26sp</dimen>
+    <dimen name="photo_size">160dp</dimen>
+    <dimen name="sign_in">14sp</dimen>
+    <dimen name="conditions">14sp</dimen>
+    <dimen name="or">20sp</dimen>
+    <dimen name="google_height">48dp</dimen>
+    <dimen name="remember_me_marginBottom">50dp</dimen>
+    <dimen name="profile_marginBottom">30dp</dimen>
+    <dimen name="acquainted_marginBottom">5dp</dimen>
+    <dimen name="acquainted_textSize">30sp</dimen>
+</resources>

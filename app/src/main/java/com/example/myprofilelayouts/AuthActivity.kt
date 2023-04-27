@@ -2,6 +2,7 @@ package com.example.myprofilelayouts
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myprofilelayouts.databinding.ActivityAuthBinding
 
@@ -15,10 +16,10 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    fun onCheckboxClicked() {
+    fun onCheckboxClicked(view: View) {
     }
 
-    fun register() {
+    fun register(view: View) {
         val mail: String = mailExtraction()
         val password: String = passwordExtraction()
         if (mail == incorrectEntry) binding.email.error = incorrectEntry
