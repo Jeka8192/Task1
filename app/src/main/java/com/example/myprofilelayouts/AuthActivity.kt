@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myprofilelayouts.databinding.ActivityAuthBinding
 
+
 class AuthActivity : AppCompatActivity() {
     private val incorrectEntry: String = "Incorrect entry"
     private lateinit var binding: ActivityAuthBinding
@@ -36,6 +37,7 @@ class AuthActivity : AppCompatActivity() {
         intent.putExtra("mail", mail)
         startActivity(intent)
         overridePendingTransition(R.anim.right, R.anim.left)
+        finish()
     }
 
 
