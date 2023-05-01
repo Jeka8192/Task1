@@ -6,9 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myprofilelayouts.databinding.ActivityAuthBinding
 
+private const val incorrectEntry: String = "Incorrect entry"
+
 
 class AuthActivity : AppCompatActivity() {
-    private val incorrectEntry: String = "Incorrect entry"
     private lateinit var binding: ActivityAuthBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +24,19 @@ class AuthActivity : AppCompatActivity() {
     fun register(view: View) {
         val mail: String = mailExtraction()
         val password: String = passwordExtraction()
-        if (mail == incorrectEntry) binding.email.error = incorrectEntry
-        else binding.email.error = null
-        if (password == incorrectEntry) binding.password.error = incorrectEntry
-        else binding.password.error = null
+
+        if (mail == incorrectEntry) {
+            binding.email.error = incorrectEntry
+        } else {
+            binding.email.error = null
+        }
+
+        if (password == incorrectEntry) {
+            binding.password.error = incorrectEntry
+        } else {
+            binding.password.error = null
+        }
+
         if (mail != incorrectEntry && password != incorrectEntry) {
             createIntentMainActivity(mail)
         }
@@ -34,7 +44,7 @@ class AuthActivity : AppCompatActivity() {
 
     private fun createIntentMainActivity(mail: String) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("mail", mail)
+        intent.putExtra(MAIL_KEY, mail)
         startActivity(intent)
         overridePendingTransition(R.anim.right, R.anim.left)
         finish()
